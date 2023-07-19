@@ -1,5 +1,9 @@
 const canvas = document.querySelector("#game");
 const game = canvas.getContext("2d");
+const btnUp = document.querySelector("#up");
+const btnLeft = document.querySelector("#left");
+const btnRight = document.querySelector("#right");
+const btnDown = document.querySelector("#down");
 
 window.addEventListener("load", renderCanvas);
 window.addEventListener("resize", setCanvasSize);
@@ -59,4 +63,31 @@ function startGame() {
 function renderCanvas() {
   setCanvasSize();
   startGame();
+}
+
+window.addEventListener("keydown", moveByKeys);
+
+btnUp.addEventListener("click", moveUp);
+btnLeft.addEventListener("click", moveLeft);
+btnRight.addEventListener("click", moveRight);
+btnDown.addEventListener("click", moveDown);
+
+function moveByKeys(event) {
+  if (event.key == "ArrowUp") moveUp();
+  else if (event.key == "ArrowLeft") moveLeft();
+  else if (event.key == "ArrowRight") moveRight();
+  else if (event.key == "ArrowDown") moveDown();
+}
+
+function moveUp() {
+  console.log("up");
+}
+function moveLeft() {
+  console.log("left");
+}
+function moveRight() {
+  console.log("right");
+}
+function moveDown() {
+  console.log("down");
 }
