@@ -35,7 +35,7 @@ function startGame() {
   game.font = elementsSize + "px Verdana";
   game.textAlign = "end";
 
-  const map = maps[0];
+  const map = maps[2];
   // el metodo split basicamente separa los elementos segun lo que le indiquemos
   //   y devuelve un array con los elementos separados
   const mapRows = map.trim().split("\n");
