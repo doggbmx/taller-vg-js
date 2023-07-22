@@ -35,7 +35,7 @@ function startGame() {
   game.font = elementsSize + "px Verdana";
   game.textAlign = "end";
 
-  const map = maps[2];
+  const map = maps[0];
   // el metodo split basicamente separa los elementos segun lo que le indiquemos
   //   y devuelve un array con los elementos separados
   const mapRows = map.trim().split("\n");
@@ -101,21 +101,49 @@ function moveByKeys(event) {
 
 function moveUp() {
   console.log("up");
-  playerPosition.y -= elementsSize;
+  // THIS DOES NOT WORK
+  // if (Math.floor(playerPosition.y) - elementsSize < elementsSize) {
+  //   console.log(playerPosition.y - elementsSize);
+  //   console.log("no se puede");
+  // } else {
+  //   playerPosition.y -= elementsSize;
+  // }
+
+  // THIS WORKS FINE AS HELL
+  if (Math.floor(playerPosition.y) > elementsSize) {
+    playerPosition.y -= elementsSize;
+  }
   startGame();
 }
 function moveLeft() {
   console.log("left");
-  playerPosition.x -= elementsSize;
+  // if (playerPosition.x - elementsSize < elementsSize) {
+  //   console.log("no se puede");
+  // } else {
+  //   playerPosition.x -= elementsSize;
+  // }
+  if (Math.floor(playerPosition.x) > elementsSize) {
+    playerPosition.x -= elementsSize;
+  }
   startGame();
 }
 function moveRight() {
   console.log("right");
-  playerPosition.x += elementsSize;
+  // if (playerPosition.x + elementsSize > canvasSize - elementsSize) {
+  //   console.log("no se puede");
+  // } else {
+  //   playerPosition.x += elementsSize;
+  // }
+  if (Math.ceil(playerPosition.x) < 10 * elementsSize) {
+    playerPosition.x += elementsSize;
+  }
   startGame();
 }
 function moveDown() {
   console.log("down");
-  playerPosition.y += elementsSize;
+  // playerPosition.y += elementsSize;
+  if (Math.ceil(playerPosition.y) < 10 * elementsSize) {
+    playerPosition.y += elementsSize;
+  }
   startGame();
 }
