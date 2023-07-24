@@ -4,6 +4,7 @@ const btnUp = document.querySelector("#up");
 const btnLeft = document.querySelector("#left");
 const btnRight = document.querySelector("#right");
 const btnDown = document.querySelector("#down");
+const spanLives = document.querySelector("#lives");
 
 window.addEventListener("load", renderCanvas);
 window.addEventListener("resize", setCanvasSize);
@@ -47,6 +48,7 @@ function startGame() {
     gameWin();
     return;
   }
+  showLives();
   // el metodo split basicamente separa los elementos segun lo que le indiquemos
   //   y devuelve un array con los elementos separados
   const mapRows = map.trim().split("\n");
@@ -151,6 +153,16 @@ function levelFail() {
   playerPosition.x = undefined;
   playerPosition.y = undefined;
   startGame();
+}
+
+function showLives() {
+  // TEACHER'S METHOD
+  // const heartArray = Array(lives).fill(emojis.HEART); // crea un array con la cantidad de elementos que le indiquemos
+  // spanLives.innerHTML = "";
+  // heartArray.forEach((heart) => spanLives.append(heart));
+
+  // MY METHOD
+  spanLives.innerText = emojis.HEART.repeat(lives);
 }
 
 function gameWin() {
