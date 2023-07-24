@@ -19,6 +19,7 @@ const giftPosition = {
   x: undefined,
   y: undefined,
 };
+let enemiesPositions = [];
 
 function setCanvasSize() {
   if (window.innerHeight > window.innerWidth) {
@@ -59,6 +60,9 @@ function startGame() {
 
   game.clearRect(0, 0, canvasSize, canvasSize);
 
+  // limpiando el array de posiciones de enemigos
+  enemiesPositions = [];
+
   // chupeting the code
   mapRowCols.forEach((row, rowI) => {
     row.forEach((col, colI) => {
@@ -75,6 +79,8 @@ function startGame() {
         giftPosition.x = posX;
         giftPosition.y = posY;
         // console.log(giftPosition, playerPosition);
+      } else if (col == "X") {
+        enemiesPositions.push({ x: posX, y: posY });
       }
 
       game.fillText(emoji, posX, posY);
@@ -92,6 +98,33 @@ function movePlayer() {
     console.log("you win");
     // game.fillText(emojis["WIN"], giftPosition.x, giftPosition.y);
   }
+
+  // THIS IS THE TEACHER'S METHOD
+  const enemyCollision = enemiesPositions.find((enemy) => {
+    if (
+      Math.floor(enemy.x) == Math.floor(playerPosition.x) &&
+      Math.floor(enemy.y) == Math.floor(playerPosition.y)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  if (enemyCollision) {
+    console.log("you lose");
+  }
+
+  // THIS IS MY METHOD
+  // enemiesPositions.forEach((enemy) => {
+  //   if (
+  //     Math.floor(playerPosition.x) == Math.floor(enemy.x) &&
+  //     Math.floor(playerPosition.y) == Math.floor(enemy.y)
+  //   ) {
+  //     console.log("you lose");
+  //     // game.fillText(emojis["GAME_OVER"], enemy.x, enemy.y);
+  //   }
+  // });
 
   game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y);
 }
