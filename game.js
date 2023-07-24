@@ -11,6 +11,7 @@ window.addEventListener("resize", setCanvasSize);
 // global variables
 let canvasSize;
 let elementsSize;
+let level = 0;
 const playerPosition = {
   x: undefined,
   y: undefined,
@@ -40,7 +41,11 @@ function startGame() {
   game.font = elementsSize + "px Verdana";
   game.textAlign = "end";
 
-  const map = maps[0];
+  const map = maps[level];
+  if (!map) {
+    gameWin();
+    return;
+  }
   // el metodo split basicamente separa los elementos segun lo que le indiquemos
   //   y devuelve un array con los elementos separados
   const mapRows = map.trim().split("\n");
@@ -95,6 +100,7 @@ function movePlayer() {
     Math.floor(playerPosition.x) == Math.floor(giftPosition.x) &&
     Math.floor(playerPosition.y) == Math.floor(giftPosition.y)
   ) {
+    levelWin();
     console.log("you win");
     // game.fillText(emojis["WIN"], giftPosition.x, giftPosition.y);
   }
@@ -127,6 +133,15 @@ function movePlayer() {
   // });
 
   game.fillText(emojis["PLAYER"], playerPosition.x, playerPosition.y);
+}
+
+function levelWin() {
+  level++;
+  startGame();
+}
+
+function gameWin() {
+  console.log("you win the game, now go get a life");
 }
 
 function renderCanvas() {
