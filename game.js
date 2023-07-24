@@ -5,6 +5,7 @@ const btnLeft = document.querySelector("#left");
 const btnRight = document.querySelector("#right");
 const btnDown = document.querySelector("#down");
 const spanLives = document.querySelector("#lives");
+const spanTime = document.querySelector("#time");
 
 window.addEventListener("load", renderCanvas);
 window.addEventListener("resize", setCanvasSize);
@@ -12,8 +13,14 @@ window.addEventListener("resize", setCanvasSize);
 // global variables
 let canvasSize;
 let elementsSize;
+
 let level = 0;
 let lives = 3;
+
+let timeStart;
+let timePlayer;
+let timeInterval;
+
 const playerPosition = {
   x: undefined,
   y: undefined,
@@ -49,6 +56,12 @@ function startGame() {
     return;
   }
   showLives();
+
+  if (!timeStart) {
+    timeStart = Date.now();
+    timeInterval = setInterval(showTime, 100);
+  }
+
   // el metodo split basicamente separa los elementos segun lo que le indiquemos
   //   y devuelve un array con los elementos separados
   const mapRows = map.trim().split("\n");
@@ -149,6 +162,7 @@ function levelFail() {
   if (lives <= 0) {
     level = 0;
     lives = 3;
+    timeStart = undefined;
   }
   playerPosition.x = undefined;
   playerPosition.y = undefined;
@@ -165,8 +179,13 @@ function showLives() {
   spanLives.innerText = emojis.HEART.repeat(lives);
 }
 
+function showTime() {
+  spanTime.innerHTML = ((Date.now() - timeStart) / 1000).toFixed(2);
+}
+
 function gameWin() {
   console.log("you win the game, now go get a life");
+  clearInterval(timeInterval);
 }
 
 function renderCanvas() {
