@@ -6,6 +6,8 @@ const btnRight = document.querySelector("#right");
 const btnDown = document.querySelector("#down");
 const spanLives = document.querySelector("#lives");
 const spanTime = document.querySelector("#time");
+const spanRecord = document.querySelector("#record");
+const pResult = document.querySelector("#result");
 
 window.addEventListener("load", renderCanvas);
 window.addEventListener("resize", setCanvasSize);
@@ -60,6 +62,7 @@ function startGame() {
   if (!timeStart) {
     timeStart = Date.now();
     timeInterval = setInterval(showTime, 100);
+    showRecord();
   }
 
   // el metodo split basicamente separa los elementos segun lo que le indiquemos
@@ -186,6 +189,24 @@ function showTime() {
 function gameWin() {
   console.log("you win the game, now go get a life");
   clearInterval(timeInterval);
+  // RECORD TIME LOGIC
+  const playerTime = (Date.now() - timeStart) / 1000;
+  const recordTime = localStorage.getItem("record_time");
+  if (localStorage.getItem("record_time")) {
+    if (playerTime < recordTime) {
+      localStorage.setItem("record_time", playerTime);
+      pResult.innerHTML = "you beat the record";
+    } else {
+      pResult.innerHTML = "you didn't beat the record";
+    }
+  } else {
+    localStorage.setItem("record_time", playerTime);
+    pResult.innerHTML = "first time? now try to beat your time";
+  }
+}
+
+function showRecord() {
+  spanRecord.innerHTML = localStorage.getItem("record_time");
 }
 
 function renderCanvas() {
