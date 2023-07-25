@@ -206,6 +206,9 @@ function gameWin() {
     localStorage.setItem("record_time", playerTime);
     pResult.innerHTML = "first time? now try to beat your time";
   }
+  setTimeout(() => {
+    location.reload();
+  }, 5000);
 }
 
 function showRecord() {
